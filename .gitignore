@@ -1,0 +1,11 @@
+/venv/
+/.venv/
+/.idea/
+.idea
+/build/
+.idea/misc.xml
+*.pyc
+*/__pycache__/
+__pycache__/
+.env
+*.env
