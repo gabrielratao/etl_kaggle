@@ -15,18 +15,17 @@ class MoviesInfo:
     def get_movies_info(self, dataset_types):
         self.read_movies()
         self._get_genre_average(dataset_types)
-        print()
 
     def _calculate_rating_genre(self, source: str) -> dict or None:
-        filtered_movies = [movie for movie in self._documents if movie['source'] == source]
+        filtered_movies = [movie for movie in self._documents if movie['tipo_dataset'] == source]
 
         score_genres = defaultdict(lambda: {'total_votos': 0, 'soma_notas': 0})
 
         for movie in filtered_movies:
-            num_votes = movie['rating']['numVotes']
-            average = movie['rating']['averageRating']
+            num_votes = movie['qualificação']['num_votos']
+            average = movie['qualificação']['nota_média']
 
-            for genre in movie['genres']:
+            for genre in movie['gêneros']:
                 score_genres[genre]['total_votos'] += num_votes
                 score_genres[genre]['soma_notas'] += average * num_votes
 

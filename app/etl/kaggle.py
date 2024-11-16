@@ -53,27 +53,44 @@ class KaggleService:
 
     def transform_dataset(self) -> List[dict]:
         df = self.read_dataset_from_zip()
+        df = self._rename_columns(df)
         movies_doc = self._set_df_to_dict(df)
-        movies_doc = self._set_movie_rating_key(movies_doc)
+        movies_doc = self._transform_documents(movies_doc)
 
         print('Transformação do dataset para lista de JSON conluída com sucesso')
 
         return movies_doc
 
     @staticmethod
+    def _rename_columns(df) -> pd.DataFrame:
+        df = df.rename(
+            columns={
+                'title': 'título',
+                'genres': 'gêneros',
+                'releaseYear': 'ano_lançamento'
+            }
+        )
+
+        return df
+
+    def _transform_colum_values_to_array(self, movies_doc: list) -> list:
+        pass
+
+
+    @staticmethod
     def _set_df_to_dict(df: pd.DataFrame) -> List[dict]:
         return df.to_dict(orient="records")
 
-    def _set_movie_rating_key(self, movies_doc: list) -> list:
+    def _transform_documents(self, movies_doc: list) -> list:
         for movie in movies_doc:
-            movie['rating'] = {
-                'averageRating': movie['averageRating'],
-                'numVotes': movie['numVotes']
+            movie['qualificação'] = {
+                'nota_média': movie['averageRating'],
+                'num_votos': movie['numVotes']
             }
-            movie['genres'] = movie['genres'].split(',')
+            movie['gêneros'] = movie['gêneros'].split(',')
             movie.pop('averageRating')
             movie.pop('numVotes')
-            movie['source'] = self.dataset
+            movie['tipo_dataset'] = self.dataset
 
         return movies_doc
 
