@@ -4,14 +4,14 @@ from app.properties import url_datasets
 
 
 def main():
-    for dataset, dataset_info in url_datasets.items():
-        print(f'Iniciando processo para o dataset: {dataset}')
-
-        KaggleService(
-            dataset=dataset,
-            dataset_url=dataset_info['url'],
-            zip_folder=dataset_info['zip_folder']
-        ).run()
+    # for dataset, dataset_info in url_datasets.items():
+    #     print(f'Iniciando processo para o dataset: {dataset}')
+    #
+    #     KaggleService(
+    #         dataset=dataset,
+    #         dataset_url=dataset_info['url'],
+    #         zip_folder=dataset_info['zip_folder']
+    #     ).run()
 
     print('Iniciando extração de informação com base nos dados')
 
